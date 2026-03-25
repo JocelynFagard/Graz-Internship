@@ -1,1 +1,1 @@
-# Graz-Intership
+# Graz-Internship
