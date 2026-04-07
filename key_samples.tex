@@ -194,4 +194,148 @@ On the other hand, using the assumed property and commutativity of addition, we 
 
 Hence, $a = 0$ for all $a \in R$, which means that $R$ is the zero ring. Therefore, no nontrivial ring satisfies the given property.
 
+\section{Some open problems about polynomial permutations}
+
+Let $p$ be a prime number and let $d \geq 2$.
+
+A polynomial permutation of $\mathbb{Z}_{p^d}$ is a polynomial 
+$f \in \mathbb{Z}_{p^d}[X]$ that induces a permutation of the set $\mathbb{Z}_{p^d}$.
+
+In previous works, it was proved that:
+
+\vspace{0.3cm}
+
+\textbf{Theorem.} 
+
+A polynomial $f \in \mathbb{Z}_{p^d}[X]$ is a permutation polynomial 
+if and only if its reduction modulo $p$ is a permutation polynomial of $\mathbb{Z}_p$ 
+and $f'$ does not vanish on $\mathbb{Z}_p$.
+
+\vspace{0.3cm}
+
+In addition, the number of permutation polynomials of degree $n$ over $\mathbb{Z}_{p^d}$, 
+denoted by $N(p^d,n)$, was left as an open question 
+for $3 \leq n \leq 2p-2$.
+
+Here, we address these questions.
+
+\vspace{0.3cm}
+
+\textbf{Lemma.} 
+
+The number of permutation polynomials of $\mathbb{Z}_p$ 
+of degree $p-1$ is zero.
+
+Hence, for all $d \geq 2$, 
+\[
+N(p^d,p-1) = 0.
+\]
+
+\vspace{0.3cm}
+
+\textbf{Proof.}
+
+Given a permutation $\sigma$ of $\{0,1,\dots,p-1\}$, 
+Lagrange interpolation shows that the unique polynomial 
+of degree at most $p-1$ inducing this permutation is
+
+\[
+\sum_{i=0}^{p-1} \sigma(i) 
+\prod_{\substack{0 \leq j \leq p-1 \\ j \neq i}} 
+\frac{X - j}{i - j}.
+\]
+
+The coefficient of $X^{p-1}$ is therefore
+
+\[
+\sum_{i=0}^{p-1} \sigma(i) 
+= \sum_{i=0}^{p-1} i 
+= 0 \quad \text{in } \mathbb{Z}_p.
+\]
+
+Thus, no permutation polynomial over $\mathbb{Z}_p$ 
+has degree exactly $p-1$.
+
+\hfill $\square$
+
+\vspace{0.3cm}
+
+\textbf{Proposition.}
+
+Let $1 \leq n \leq p-1$ and $d \geq 2$. Then
+\[
+\frac{N(p^d,\leq p-1+n)}{p^{(d-1)(p+n)}}
+= p! \left( 
+p^n - \sum_{k=1}^{p} (-1)^{k-1} \binom{p}{k} \, p^{\max(n-k,0)}
+\right).
+\]
+
+\vspace{0.3cm}
+
+\textbf{Proof.}
+
+Any polynomial $f \in \mathbb{Z}_{p}[X]$ of degree at most $p-1+n$ can be uniquely written in the form
+\[
+f(x) = (x^p - x) q(x) + \sigma(x),
+\]
+where $\sigma$ is a polynomial of degree at most $p-1$ and $q$ is a polynomial of degree at most $n-1$.
+
+Moreover, $\sigma$ induces a permutation of $\mathbb{Z}_p$, and every such permutation arises uniquely in this way.
+
+\vspace{0.2cm}
+
+By the previous theorem, $f$ is a permutation polynomial over $\mathbb{Z}_{p^d}$ if and only if its derivative does not vanish on $\mathbb{Z}_p$. A direct computation shows that
+\[
+f'(x) \equiv -q(x) + \sigma'(x) ,
+\]
+so the condition becomes
+\[
+\forall i \in \mathbb{Z}_p, \quad \sigma'(i) \neq q(i).
+\]
+
+\vspace{0.2cm}
+
+Fix a permutation polynomial $\sigma$. We want to count the number of polynomials $q \in \mathbb{Z}_p[X]$ of degree at most $n-1$ such that
+\[
+\forall i \in \mathbb{Z}_p, \quad q(i) \neq \sigma'(i).
+\]
+
+For each $i \in \mathbb{Z}_p$, define
+\[
+A_i := \left\{ q \in \mathbb{Z}_p[X]_{< n} \;\middle|\; q(i) = \sigma'(i) \right\}.
+\]
+
+We are therefore interested in the cardinality of the complement of $\bigcup_{i \in \mathbb{Z}_p} A_i$.
+
+\vspace{0.2cm}
+
+Using the inclusion--exclusion principle, and the fact that for any distinct 
+$i_1,\dots,i_k \in \mathbb{Z}_p$, the intersection
+\[
+A_{i_1} \cap \cdots \cap A_{i_k}
+\]
+has cardinality $p^{n-k}$ if $1 \leq k \leq n$, and $1$ if $k \geq n$, we obtain
+\[
+\left|\bigcup_{i \in \mathbb{Z}_p} A_i\right|
+= \sum_{k=1}^{p} (-1)^{k-1} \binom{p}{k} \, p^{\max(n-k,0)}.
+\]
+
+\vspace{0.2cm}
+
+Hence, the number of admissible polynomials $q$ is
+\[
+p^n - \sum_{k=1}^{p} (-1)^{k-1} \binom{p}{k} \, p^{\max(n-k,0)}.
+\]
+
+\vspace{0.2cm}
+
+Since there are $p!$ possible permutation polynomials $\sigma$ over $\mathbb{Z}_p$, we finally obtain
+\[
+N(p^d,\leq p-1+n)
+= p! \left( 
+p^n - \sum_{k=1}^{p} (-1)^{k-1} \binom{p}{k} \, p^{\max(n-k,0)}
+\right).
+\]
+
+\hfill $\square$
 \end{document}
