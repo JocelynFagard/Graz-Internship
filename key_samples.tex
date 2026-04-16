@@ -10,7 +10,7 @@
 \usepackage{amsfonts}
 \usepackage[a4paper, margin=2cm]{geometry}
 
-\title{Sampling of the Keys for a PRF}
+\title{SPRING Pseudo random functions}
 \author{Jocelyn Fagard}
 \date{March 2026}
 
@@ -370,4 +370,76 @@ p^n - \sum_{k=1}^{p} (-1)^{k-1} \binom{p}{k} \, p^{\max(n-k,0)}
 \]
 
 \hfill $\square$
+
+\section{DDT of the Exponential Function over $\mathbb{F}_q^*$}
+
+Let $q$ be an odd prime number and let $g$ be a generator of $\mathbb{F}_q^*$. 
+We consider the function
+\[
+f : \mathbb{Z}_{q-1} \to \mathbb{F}_q^*, \quad x \mapsto g^x.
+\]
+
+For $\delta \in \mathbb{Z}_{q-1}$ and $\Delta \in \mathbb{F}_q$, we define
+\[
+\mathrm{DDT}(\delta, \Delta) := \# \left\{ x \in \mathbb{Z}_{q-1} \;\middle|\; f(x) + f(x+\delta) = \Delta \right\}.
+\]
+
+\medskip
+
+\textbf{Proposition.}
+\begin{itemize}
+    \item If $\delta \neq \frac{q-1}{2}$ and $\Delta \neq 0$, then 
+    \[
+    \mathrm{DDT}(\delta, \Delta) = 1.
+    \]
+    \item If $\delta = \frac{q-1}{2}$, then 
+    \[
+    \mathrm{DDT}\!\left(\tfrac{q-1}{2}, 0\right) = q-1.
+    \]
+    \item In all other cases, $\mathrm{DDT}(\delta, \Delta) = 0$.
+\end{itemize}
+
+Particularly, $\mathrm{DDT}$ does not depend on the generator $g$.
+
+\medskip
+
+\textbf{Proof.}
+
+First assume that $\delta = \frac{q-1}{2}$. Then
+\[
+(g^\delta)^2 = g^{q-1} = 1,
+\]
+so $g^\delta \in \{\pm 1\}$. Since $g$ is a generator of order $q-1$, we must have $g^\delta \neq 1$, hence $g^\delta = -1$.
+
+Therefore, for all $x \in \mathbb{Z}_{q-1}$,
+\[
+f(x+\delta) + f(x) = g^{x+\delta} + g^x = g^x(1 + g^\delta) = 0.
+\]
+This shows that
+\[
+\mathrm{DDT}\!\left(\tfrac{q-1}{2}, 0\right) = q-1.
+\]
+
+\medskip
+
+Now assume that $\delta \neq \frac{q-1}{2}$. Then $g^\delta \neq -1$, hence $1 + g^\delta \neq 0$. The map
+\[
+y \mapsto y(1 + g^\delta)
+\]
+is therefore a permutation of $\mathbb{F}_q^*$.
+
+Thus, for any $\Delta \in \mathbb{F}_q^*$, the equation
+\[
+g^x + g^{x+\delta} = \Delta
+\]
+is equivalent to
+\[
+g^x (1 + g^\delta) = \Delta,
+\]
+which admits a unique solution $g^x \in \mathbb{F}_q^*$, and hence a unique $x \in \mathbb{Z}_{q-1}$.
+
+This proves that $\mathrm{DDT}(\delta, \Delta) = 1$ for $\Delta \neq 0$, and $0$ otherwise.
+
+\hfill $\square$
+
 \end{document}
