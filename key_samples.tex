@@ -442,4 +442,122 @@ This proves that $\mathrm{DDT}(\delta, \Delta) = 1$ for $\Delta \neq 0$, and $0$
 
 \hfill $\square$
 
+\textbf{Consequences on SPRING}.
+
+Let us define
+\[
+R_q := \mathbb{F}_q[X]/(X^n + 1),
+\]
+where \(n\) is a power of two, and \(q\) is an odd prime such that \(q-1\) is divisible by \(2n\). In this setting, there exists a primitive \(2n\)-th root of unity \(\omega \in \mathbb{F}_q\). For example, one may take \(q=257\) and \(n=128\).
+
+Using the isomorphism induced by the FFT and fixing a generator \(g\) of \(\mathbb{F}_q^\ast\), we represent the keys
+\(k_0, k_1, \dots, k_m \in R_q^\ast\)
+as elements of \(\mathbb{Z}_{q-1}^n\). We define
+\[
+K := (k_1 \mid k_2 \mid \cdots \mid k_m) \in \mathbb{Z}_{q-1}^{n \times m},
+\]
+where the columns correspond to the keys \(k_1,\dots,k_m\). With this notation, the first step of SPRING consists in computing the affine map
+\[
+c = (c_1,\dots,c_m) \in \{0,1\}^m \longmapsto Kc + k_0 \in \mathbb{Z}_{q-1}^n.
+\]
+
+We then apply coordinate-wise exponentiation to
+\[
+x := (x_1,\dots,x_n) = Kc + k_0 \in \mathbb{Z}_{q-1}^n,
+\]
+and obtain
+\[
+y := (g^{x_1},\dots,g^{x_n}) \in \mathbb{F}_q^n,
+\quad \text{which we denote by } y = g^x.
+\]
+
+\vspace{0.3cm}
+
+The inverse FFT step consists in applying the matrix
+\[
+\frac{1}{n}V, \quad \text{where } V := \bigl(\omega^{-2ij}\bigr)_{0 \leq i,j \leq n-1}.
+\]
+We obtain
+\[
+z := \frac{1}{n} V y.
+\]
+
+We then perform a pointwise multiplication with the vector
+\[
+\eta := (1, \omega^{-1}, \dots, \omega^{-(n-1)}),
+\]
+yielding
+\[
+u := z \odot \eta.
+\]
+
+Finally, we apply coordinate-wise rounding \(\lfloor \cdot \rceil\), defined by
+\[
+\lfloor a \rceil :=
+\begin{cases}
+0 & \text{if } 0 \leq a < \frac{q}{4} \text{ or } \frac{3q}{4} \leq a < q, \\
+1 & \text{otherwise}.
+\end{cases}
+\]
+
+One easily checks that \(\lfloor a \rceil = \lfloor -a \rceil\) for all \(a \in \mathbb{F}_q\).
+
+Finally, given \(K\), \(k_0\), and \(c\), the SPRING function is written as
+\[
+F_{K,k_0}(c)
+:=
+\left\lfloor
+\left(
+\frac{1}{n} V \cdot g^{Kc + k_0}
+\right)
+\odot \eta
+\right\rceil.
+\]
+
+\vspace{0.3cm}
+
+\textbf{Definition}.
+
+We say two sets of keys $(k_0,k_1,\cdots,k_m)$ and $(k'_0,k'_1,\cdots,k'_m)$ are equivalent and we denote it by $\sim$ if :
+\[
+\forall i, \exists \epsilon \in \{ 0, 1\} , k_i = k'_i + \epsilon \cdot (\frac{q-1}{2}, \frac{q-1}{2}, \cdots, \frac{q-1}{2}) 
+\]
+
+Each equivalent class is composed of $2^m$ sets of keys.
+
+\vspace{0.3cm}
+
+\textbf{Proposition}
+Let $(K,k_0) \sim (K',k'_0)$, then $F_{K,k_0} = F_{K',k'_0}$.
+
+\vspace{0.3cm}
+\textbf{Proof.}
+Let's consider $c\in \{0,1\}^m$.Because of the equivalence of sets of keys, we have :
+
+\[
+Kc + k_0 = K'c + k'_0 + \epsilon (\frac{q-1}{2}, \frac{q-1}{2}, \cdots, \frac{q-1}{2}) $ where $\epsilon \in \{ 0, 1\}.
+\]
+
+\vspace{0.3cm}
+
+By remarking that : $g^{\epsilon (\frac{q-1}{2}, \frac{q-1}{2}, \cdots, \frac{q-1}{2})} = \epsilon $ we obtain:
+
+\[
+F_{K,k_0}(c)
+=
+\left\lfloor
+\left(
+\frac{1}{n} V \cdot g^{Kc + k_0}
+\right)
+\odot \eta
+\right\rceil = \left\lfloor
+\epsilon\left(
+\frac{1}{n} V \cdot g^{K'c + k'_0}
+\right)
+\odot \eta
+\right\rceil = F_{K',k'_0}(c).
+\]
+
+\hfill \square
+
 \end{document}
