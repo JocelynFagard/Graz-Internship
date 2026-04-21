@@ -558,6 +558,87 @@ F_{K,k_0}(c)
 \right\rceil = F_{K',k'_0}(c).
 \]
 
-\hfill \square
+\hfill $\square$
+
+\vspace{0.3cm}
+
+\section{Some thoughts about linear forms in $\mathbb{Z}_{q-1}^n$}
+
+In this section we will have $q-1:= 2^{\alpha}$.
+
+\vspace{0.3cm}
+
+We have seen sampling the key was equivalent to choose uniformly at random and independently a matrix $K \in \mathbb{Z}_{q-1}^{n \times m}$ as well as an offset vector $k_0 \in \mathbb{Z}_{q-1}^n$.
+
+\vspace{0.3cm}
+
+We are interested in this section to get the bias of the first function $g$, of SPRING:
+\[
+ c:=(c_1,\cdots,c_m) \in \{0,1\}^m \to g^{K \cdot c + k_0} \in (\mathbb{F}_q^*)^n.
+\]
+
+\vspace{0.3cm}
+
+\textbf{Lemma.}
+Let $v:=(v_1,v_2,\cdots,v_n)\in \mathbb{Z}_{q-1}^n$.
+A product scalar linear form : $<v, \cdot >: \mathbb{Z}_{q-1}^n \to \mathbb{Z}_{q-1}$ is equidistributed if and only if there exist $i$ such that $v_i \in \mathbb{Z}_{q-1}^*$.
+
+\vspace{0.3cm}
+
+\textbf{Proof.}
+If it was not the case then every coordinate of $v$ would be divisible by 2 and the image of $<v,\cdot>$ would be included in the set of even numbers, so not equidistributed.
+
+\vspace{0.3cm}
+
+Now without loss of generality, if $v_n$ is invertible, the map $l \in \mathbb{Z}_{q-1} \to l\cdot v_n \in \mathbb{Z}_{q-1}$ is a bijection. So  for every value $j \in \mathbb{Z}_{q-1}$ and every truncated vector $(x_1,\cdots,x_{n-1}) \in  \mathbb{Z}_{q-1}^{n-1} $ there is exactly one value $l \in \mathbb{Z}_{q-1}$ such that $<v, (x,l)> = j$. 
+
+\hfill $\square$
+
+\vspace{0.3cm}
+
+\textbf{Definition.}
+A family $a:=(a_1,\cdots,a_{\alpha}) \in \mathbb{Z}_{q-1}^{\alpha}$ is a binary generator of $\mathbb{Z}_{q-1}$ if:
+\[
+\{\sum_{i=1}^{\alpha} \epsilon_i \cdot a_i \mid \epsilon_i \in \{0,1\}\} = \mathbb{Z}_{q-1}.
+\]
+
+\vspace{0.3cm}
+
+\textbf{Lemma.}
+$a:=(a_1,\cdots,a_{\alpha})$ is a binary generator if and only if each $a_i$ has different 2-valuation  from the others.
+
+\vspace{0.3cm}
+
+\textbf{Proof.} 
+For the sufficient condition we can assume without loss of generality that $v_2(a_i)=i-1$, that is $a_i = 2^i u_i$ whit $u_i$ odd.
+Let $(\epsilon_i)_i, (\epsilon'_i)_i \in \{0,1\}^{\alpha}$ such that:
+\[
+\sum_{i=1}^{\alpha} \epsilon_i \cdot a_i =\sum_{i=1}^{\alpha} \epsilon'_i \cdot a_i
+\]
+that is:
+\[
+\sum_{i=1}^{\alpha} (\epsilon_i -\epsilon'_i)\cdot 2^i u_i =0 
+\].
+
+Now because this equation is modulo $q-1=2^{\alpha}$, it must be divisible by 2. So $\epsilon_1 -\epsilon'_1=0$ that is $\epsilon_1 =\epsilon'_1$. Because it is divisible by $2^2$ we must have $\epsilon_2 =\epsilon'_2$. And so on until the fact that it is divisible by $2^{\alpha -1}$ which implies $\epsilon_{\alpha} =\epsilon'_{\alpha}$.
+
+\vspace{0.3cm}
+
+For the necessary condition, assume the $(a_i)_i$ are ordered by increasing valuations, let $\eta$ be the least element such that $v_2(a_{\eta}) \neq \eta -1$. If $ v_2(a_{\eta}) \geq \eta$, then $(2 ^{\eta-1} - 1)\cdot 2^{\alpha +1 -\eta}$ binary linear combination can lead to integers with valuation $\leq \eta-1$, but there are $(2^{\eta}-1) 2^{\alpha-\eta}$ such numbers.  If $ v_2(a_{\eta}) \leq \eta -2 $ then $a_{\eta-1}, a_{\eta}$ have valuation $\eta-2$ and we can obtain twice more numbers of valuation $\eta -2$ with binary linear combinations as usual.
+
+\hfill $\square$
+
+\vspace{0.3cm}
+
+\textbf{Corollary.}
+Let's consider $v \in \mathbb{Z}_{q-1}^n$, that contains a binary generator of $\mathbb{Z}_{q-1}$ in its coordinates, then the function:
+\[
+c:=(c_1,\cdots,c_m) \in \{0,1\}^m \to <v,c>
+\]
+is equidistributed over $\mathbb{Z}_{q-1}$.
+
+\vspace{0.3cm}
+
+\textbf{Proof.} The proof is similar than the one for the first lemma. \hfill $\square$
 
 \end{document}
